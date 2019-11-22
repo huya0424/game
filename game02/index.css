@@ -1,9 +1,6 @@
 html, body {
     font-size: 16px;
 }
-/* .seting {
-    
-} */
 .timer {
     display: inline-block;
     margin-left: 30px;
@@ -21,8 +18,8 @@ html, body {
 }
 .grid ul li {
     position: relative;
-    width: 30px;
-    height: 30px;
+    width: 0.53rem;
+    height: 0.53rem;
     text-align: center;
     background-color: #999;
     border-radius: 6px;

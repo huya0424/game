@@ -21,6 +21,7 @@ function change_type(current, type) {
     lei_position = [];
     isOver = false;
     timer = 0;
+    clearTimeout(time);
     init_grid();
 }
 

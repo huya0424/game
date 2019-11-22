@@ -20,5 +20,18 @@
         <div id="grid" class="grid"></div>
     </div>
     <script src="index.js"></script>
+    <script>
+        // window.onload = function() {
+            let htmlWidth = document.documentElement.clientWidth || document.body.clientWidth;
+            let htmlDom = document.getElementsByTagName("html")[0];
+            htmlDom.style.fontSize = htmlWidth / 20 + "px";
+        // }
+        window.onresize = function() {
+            let htmlWidth = document.documentElement.clientWidth || document.body.clientWidth;
+            let htmlDom = document.getElementsByTagName("html")[0];
+            htmlDom.style.fontSize = htmlWidth / 20 + "px";
+            console.log(htmlWidth / 20);
+        }
+    </script>
 </body>
 </html>
