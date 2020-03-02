@@ -1,7 +1,7 @@
 let grid = {
     first: { row: 9, column:9, total: 10 },
     second: {row: 9, column: 16, total: 18 },
-    third: {row: 16, column: 16, total: 99 }
+    third: {row: 16, column: 16, total: 60 }
 };
 let grid_type = "first";
 let row = 9;
@@ -9,32 +9,39 @@ let column = 9;
 let total = 10;
 let lei = 10;
 let lei_position = [];
-let isOver = false; //判断游戏是否结束
+let isOver = true; //判断游戏是否结束
 let timer = 0;
 let time;
+let isTime = false; //判断游戏计时是否开始
 
+// 改变难度
 function change_type(current, type) {
     grid_type = type;
     row = grid[type].row;
     column = grid[type].column;
     lei = grid[type].total;
     lei_position = [];
-    isOver = false;
+    isOver = true;
     timer = 0;
     clearTimeout(time);
     init_grid();
+    document.getElementById('isTime').innerHTML = "开始";
+    document.getElementById('timer').innerHTML = "0";
+    document.getElementById('game_over').innerHTML = "";
 }
-
+// 游戏结束
 function gameOver(text) {
     let allLei = document.getElementsByClassName("isLei");
     isOver = true;
+    timer = 0;
     clearTimeout(time);
-    document.getElementById("timer").innerHTML = text;
+    document.getElementById("game_over").innerHTML = text;
+    document.getElementById("isTime").innerHTML = '再玩一局';
     for(let i = 0; i < allLei.length; i++) {
         allLei[i].classList.add('lei');
     }
 }
-
+// 左击
 function click_left(dom) {
     if(dom && dom.classList.contains('isLei')) {
         let text = "死透了！";
@@ -63,6 +70,7 @@ function click_left(dom) {
                     if(nearBox && nearBox != 0) {
                         if(!nearBox.classList.contains("checked")) {
                             nearBox.classList.add("checked");
+                            if(nearBox.classList.contains('flag')) nearBox.classList.remove('flag');
                             click_left(nearBox);
                         }
                     }
@@ -77,12 +85,13 @@ function click_left(dom) {
         }
     }
 }
-
+// 判断鼠标为左击还是右击
 function click_li(event, liId) {
+    console.log(isOver);
     let elem_id = document.getElementById(liId);
     if(event.button === 0 && !elem_id.classList.contains("flag") && !isOver) {
         click_left(event.target);
-    } else if(event.button === 2 && !isOver) {
+    } else if(event.button === 2 && !isOver && !elem_id.classList.contains('checked')) {
         if(elem_id.classList.contains('flag')) {
             elem_id.classList.remove('flag');
         } else {
@@ -91,7 +100,7 @@ function click_li(event, liId) {
         // click_right();
     }
 }
-
+// 初始化雷的位置
 function init_lei() {
     let count = lei;
     while(count > 0) {
@@ -104,12 +113,13 @@ function init_lei() {
         }
     }
 }
+// 开始计时
 function init_timer() {
     time = setTimeout(init_timer,1000);
     timer++;
     document.getElementById("timer").innerHTML = timer;
 }
-
+// 初始化棋盘
 function init_grid() {
     let panel = '';
     for(let i = 0; i < row; i++) {
@@ -122,7 +132,26 @@ function init_grid() {
     }
     document.getElementById("grid").innerHTML = panel;
     init_lei();
-    init_timer();
+    // init_timer();
+}
+function start_game() {
+    isTime = !isTime;
+    isOver = !isOver;
+    let htmlText = document.getElementById("isTime").innerHTML;
+    if(htmlText == '开始' || htmlText == '继续') {
+        document.getElementById("isTime").innerHTML = '暂停';
+        init_timer();
+    } else if (htmlText == '暂停') {
+        document.getElementById("isTime").innerHTML = '继续';
+        clearTimeout(time);
+    }  else if(htmlText == '再玩一局') {
+        // timer = 0;
+        document.getElementById('isTime').innerHTML = "暂停";
+        document.getElementById('timer').innerHTML = "0";
+        document.getElementById('game_over').innerHTML = "";
+        init_grid();
+        init_timer();
+    }
 }
 window.oncontextmenu = function(e){
     //取消默认的浏览器自带右键

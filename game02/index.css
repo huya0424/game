@@ -1,12 +1,23 @@
 html, body {
     font-size: 16px;
 }
-.timer {
+.setting {
+    display: flex;
+    flex-direction: row;
+    padding: 20px 30px;
+}
+.setting button {
+    margin: 0 30px;
+}
+.setting .timer {
+    padding: 0 30px;
+}
+/* .timer {
     display: inline-block;
     margin-left: 30px;
     margin-bottom: 20px;
-    font-size: 20px;
-}
+    font-size: 0.25rem;
+} */
 .grid {
     background-color: #fff;
 }
@@ -18,11 +29,17 @@ html, body {
 }
 .grid ul li {
     position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    /* margin: 0 -0.5px -0.5px 0; */
     width: 0.53rem;
     height: 0.53rem;
+    font-size: 0.25rem;
     text-align: center;
-    background-color: #999;
-    border-radius: 6px;
+    background-color: #d2d1d1;
+    border: 1px solid #fff;
+    border-radius: 8px;
 }
 .flag::after {
     content: '♣';
@@ -33,7 +50,7 @@ html, body {
     color: red;
 }
 .lei::after {
-    content: '☺';
+    content: '☹';
     position: absolute;
     left: 50%;
     top: 50%;
@@ -41,7 +58,7 @@ html, body {
     color: red;
 }
 .grid ul li.checked {
-    background-color: #cac7c7;
+    background-color: #a7a7a7;
 }
 .grid ul li.checking {
     background-color: red;

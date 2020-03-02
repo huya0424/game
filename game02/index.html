@@ -9,28 +9,28 @@
 </head>
 <body>
     <div>
-        <div class="seting">
+        <div class="setting">
             <select name="type" id="type" onchange="change_type(this,value)">
                 <option value="first">初级</option>
                 <option value="second">中级</option>
                 <option value="third">高级</option>
             </select>
-            <div id="timer" class="timer"></div>
+            <button id="isTime" onclick="start_game()">开始</button>
+            <div id="timer" class="timer">0</div>
+            <div id="game_over"></div>
         </div>
         <div id="grid" class="grid"></div>
     </div>
     <script src="index.js"></script>
     <script>
-        // window.onload = function() {
+        init_font();
+        function init_font() {
             let htmlWidth = document.documentElement.clientWidth || document.body.clientWidth;
             let htmlDom = document.getElementsByTagName("html")[0];
             htmlDom.style.fontSize = htmlWidth / 20 + "px";
-        // }
+        }
         window.onresize = function() {
-            let htmlWidth = document.documentElement.clientWidth || document.body.clientWidth;
-            let htmlDom = document.getElementsByTagName("html")[0];
-            htmlDom.style.fontSize = htmlWidth / 20 + "px";
-            console.log(htmlWidth / 20);
+            init_font();
         }
     </script>
 </body>
